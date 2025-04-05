@@ -6,7 +6,7 @@ function Cartucho({ nombre, imagen, activo, consola }) {
     try {
       // Si el juego está activo, se hace una solicitud para apagarlo
       if (activo) {
-        const response = await fetch('http://localhost:8000/arcade/reset', {
+        const response = await fetch('http://192.168.1.79:8000/arcade/reset', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ function Cartucho({ nombre, imagen, activo, consola }) {
         }
       } else {
         // Si el juego está inactivo, se hace una solicitud para encenderlo
-        const response = await fetch(`http://localhost:8000/arcade/videojuego/${nombre}/${consola}`, {
+        const response = await fetch(`http://192.168.1.79:8000/arcade/videojuego/${nombre}/${consola}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -8,44 +8,31 @@ function ConsolaItem({ consola }) {
     navigate(`/juegos/${consola.toLowerCase()}`);
   };
 
-  // Obtener la imagen correspondiente a cada consola
-  const getImageSrc = (consola) => {
-    switch (consola.toLowerCase()) {
-      case 'psp':
-        return '/assets/psp.png';
-      case 'nds':
-        return '/assets/nds.png';
-      case 'nes':
-        return '/assets/nes.png';
-      case 'sega':
-        return '/assets/sega.png';
-      case 'game boy':
-        return '/assets/gameboy.png';
-      default:
-        return '/assets/default.png';
-    }
-  };
-
   return (
     <button
       onClick={handleClick}
       type="button"
-      className="folder-btn w-full max-w-xs flex flex-col items-center p-4 rounded-lg">
-      {/* Barra superior de la carpeta */}
-      <div className="folder-bar w-full h-2 bg-gray-300 rounded-t-lg"></div>
+      className="w-full max-w-[160px] sm:max-w-[140px] md:max-w-[150px] h-[180px] sm:h-[160px] md:h-[180px] bg-yellow-400 hover:bg-yellow-300 transition duration-300 rounded-md shadow-md flex flex-col justify-between items-center p-2 border-[2px] border-yellow-600"
+    >
+      {/* Pestaña superior */}
+      <div className="w-full h-1 bg-yellow-200 rounded-t-sm mb-1"></div>
 
-      <div className="image-container mb-2">
+      {/* Imagen */}
+      <div className="w-full h-[90px] sm:h-[70px] md:h-[90px] flex items-center justify-center overflow-hidden rounded">
         <img
           src={`/assets/consolas/${encodeURIComponent(consola)}.jpg`}
           alt={consola}
-          className="consola-image bg-slate-500 rounded-b-lg"
+          className="object-contain h-full w-full"
           onError={(e) => {
             e.target.src = '/assets/consolas/consolas.jpg';
           }}
         />
       </div>
 
-      <span className="text-xl font-bold">{consola.toUpperCase()}</span>
+      {/* Texto */}
+      <span className="mt-1 text-black text-center text-xs md:text-sm font-bold font-[PressStart2P] tracking-tight leading-tight">
+        {consola.toUpperCase()}
+      </span>
     </button>
   );
 }

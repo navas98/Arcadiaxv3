@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <div className="text-cyan-300 text-2xl md:text-3xl font-bold arcade-font">
-          8-Bit Club
+          ArcadiaX
         </div>
 
         {/* Botón de Menú para pantallas pequeñas */}

@@ -1,9 +1,10 @@
-from database.Videojuego import get_all_videogame,create_videogame,get_one_videogame_nombre_consola,get_one_videogame_id,delete_videogame,update_videogame, obtener_consolas,obtener_juegos_por_consola,set_play_true,existe_videogame_en_play,resetear_videogames
+from database.Videojuego import get_all_videogame,create_videogame,get_one_videogame_nombre_consola,get_one_videogame_id,delete_videogame,update_videogame, obtener_consolas,obtener_juegos_por_consola,set_play_true,existe_videogame_en_play,resetear_videogames,obtener_consola_historia
 from routes.models.Videojuego import Videogame,UpdateVideogame
 from fastapi import HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from database.Videojuego import collection
+from typing import Union
 videojuego=APIRouter()
 
 #CRUD BASICO
@@ -50,7 +51,13 @@ async def get_consolas():
     if consolas:
         return consolas
     raise HTTPException(status_code=404, detail="No se encontraron consolas")
-from fastapi import HTTPException, APIRouter
+
+@videojuego.get("/consolas/historia", response_model=Union[str, dict])
+async def get_consolas_competitivo():
+    consolas = await obtener_consola_historia()
+    if consolas:
+        return consolas
+    raise HTTPException(status_code=404, detail="No se encontraron consolas en modo historia")
 
 @videojuego.get("/arcade/juegos/{consola}", response_model=List[Videogame])
 async def get_juegos_por_consola(consola: str):

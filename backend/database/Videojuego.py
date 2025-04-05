@@ -51,9 +51,22 @@ async def delete_videogame(id:str):
 
 async def obtener_consolas():
     try:
-        # Obtiene todas las consolas distintas de la colección de videojuegos
+        # Método distinct para obtener consolas únicas
         consolas = await collection.distinct("consola")
-        return consolas
+        # Elimina 'psp' de la lista
+        consolas_filtradas = [consola for consola in consolas if consola != "psp"]
+        return consolas_filtradas
+    except Exception as e:
+        # Manejo de errores genéricos y envío de un código HTTP 500
+        raise HTTPException(status_code=500, detail=f"Error al obtener consolas: {str(e)}")
+async def obtener_consola_historia():
+    try:
+        # Busca si existe la consola PSP en la colección
+        consola_psp = await collection.find_one({"consola": "psp"})  # Cambiado "nds" por "PSP"
+        if consola_psp:
+            return "psp"
+        else:
+            return {"mensaje": "La consola PSP no está registrada en la base de datos."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

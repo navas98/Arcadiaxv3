@@ -4,19 +4,20 @@ import ConsolaItem from "../components/tarjeta_consolas.jsx";
 import Navbar from "../components/navbar.jsx";
 
 function Consolas() {
-  const [consolas, setConsolas] = useState([]);
+  const [competitivoConsolas, setCompetitivoConsolas] = useState([]);
+  const [historiaConsola, setHistoriaConsola] = useState(null);
 
   useEffect(() => {
-    const fetchConsolas = async () => {
+    const fetchCompetitivoConsolas = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/arcade/consolas", {
+        const response = await axios.get("http://192.168.1.79:8000/arcade/consolas", {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
         });
         if (Array.isArray(response.data)) {
-          setConsolas(response.data);
+          setCompetitivoConsolas(response.data);
         } else {
           console.error("Respuesta inesperada del servidor:", response.data);
         }
@@ -25,7 +26,26 @@ function Consolas() {
       }
     };
 
-    fetchConsolas();
+    const fetchHistoriaConsola = async () => {
+      try {
+        const response = await axios.get("http://192.168.1.79:8000/consolas/historia", {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (typeof response.data === "string" || response.data instanceof String) {
+          setHistoriaConsola(response.data);
+        } else {
+          console.error("Respuesta no es una cadena:", response.data);
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+      }
+    };
+
+    fetchCompetitivoConsolas();
+    fetchHistoriaConsola();
   }, []);
 
   return (
@@ -44,60 +64,61 @@ function Consolas() {
       </div>
 
       {/* Contenido principal */}
-      <div className="pt-24 px-4">
-        {/* Modo competitivo */}
-        <div className="mb-12">
-          <div className="flex justify-center items-center">
-            <h2
-              className="text-red-800 text-2xl sm:text-3xl font-bold text-center mb-8"
-              style={{
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                padding: "0.5rem 1rem",
-                borderRadius: "0.5rem",
-              }}
-            >
-              Modo competitivo 💀
-            </h2>
-          </div>
-          <div className="flex justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-7xl">
-              {consolas.length > 0 ? (
-                consolas.map((consola, index) => (
-                  <ConsolaItem key={`competitivo-${index}`} consola={consola} />
-                ))
-              ) : (
-                <p className="text-white text-lg sm:text-xl col-span-full text-center">
-                  No hay consolas disponibles
-                </p>
-              )}
-            </div>
+      <div className="pt-20 px-2 pb-4 flex flex-col items-center justify-start min-h-screen">
+        {/* Supervivencia */}
+        <div className="mb-4 w-full">
+        <h2
+  className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-4 uppercase tracking-wide"
+  style={{
+    color: "#010203", // rojo brillante
+    textShadow: `
+      0 0 4px #ff1a1a,
+      0 0 10px #ff1a1a,
+      0 0 20px #ff0000
+    `,
+    fontFamily: '"Orbitron", sans-serif',
+  }}
+>
+  SUPERVIVENCIA 
+</h2>
+
+          
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-6xl mx-auto justify-items-center">
+            {competitivoConsolas.length > 0 ? (
+              competitivoConsolas.map((consola, index) => (
+                <ConsolaItem key={`competitivo-${index}`} consola={consola} />
+              ))
+            ) : (
+              <p className="text-white text-sm col-span-full text-center">
+                No hay consolas disponibles
+              </p>
+            )}
           </div>
         </div>
 
         {/* Modo historia */}
-        <div className="mt-12">
-          <div className="flex justify-center items-center">
-            <h2
-              className="text-green-700 text-2xl sm:text-3xl font-bold text-center mb-8"
-              style={{
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                padding: "0.5rem 1rem",
-                borderRadius: "0.5rem",
-              }}
-            >
-              Modo historia ⏳
-            </h2>
-          </div>
+        <div className="mt-2 w-full">
+        <h2
+  className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-4 uppercase tracking-wide"
+  style={{
+    color: "#010203", // verde neón principal
+    textShadow: `
+      0 0 4px #00ff66,
+      0 0 10px #00ff66,
+      0 0 20px #00cc44
+    `,
+    fontFamily: '"Orbitron", sans-serif',
+  }}
+>
+  MODO HISTORIA 
+</h2>
+
           <div className="flex justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-full max-w-7xl">
-              {consolas.length > 0 ? (
-                consolas.map((consola, index) => (
-                  <ConsolaItem key={`historia-${index}`} consola={consola} />
-                ))
+            <div className="w-full max-w-6xl flex justify-center">
+              {historiaConsola ? (
+                <ConsolaItem consola={historiaConsola} />
               ) : (
-                <p className="text-white text-lg sm:text-xl col-span-full text-center">
+                <p className="text-white text-sm text-center">
                   No hay consolas disponibles
                 </p>
               )}

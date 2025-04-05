@@ -49,7 +49,7 @@ function HomePage() {
       {/* Cartel de neón */}
       <div className="w-10/12 sm:w-8/12 md:w-6/12 lg:w-4/12 p-6 rounded-lg bg-black bg-opacity-80 neon-sign text-center shadow-xl border-2 border-yellow-400 mt-8">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-yellow-400 retro-font">
-          8-Bit Club
+          ArcadiaX
         </h2>
         <p className="text-sm md:text-base text-cyan-300 leading-relaxed retro-font">
           Explora el mundo de los juegos clásicos con nuestra recreativa casera.
