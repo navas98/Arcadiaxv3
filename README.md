@@ -5,9 +5,6 @@
 ██   ██ ██   ██ ██      ██   ██ ██   ██ ██ ██   ██  ██ ██  
 ██   ██ ██   ██  ██████ ██   ██ ██████  ██ ██   ██ ██   ██ 
                                                            
-                                                           
-
-                      ARCADIAX - RETRO POWER
 ```
 
 # 🎮 ArcadiaX
@@ -40,7 +37,7 @@
 cd backend
 python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
-🔗 URL API: http://192.168.1.79:8000/docs
+
 
 ### 💻 Frontend (React)
 ```bash
@@ -48,7 +45,7 @@ cd client_responsive
 npm install
 npm start -- --host 0.0.0.0
 ```
-🔗 Frontend: http://192.168.1.79:3000
+
 
 ### 🕹️ Modo Arcade
 ```bash
@@ -90,14 +87,7 @@ python main.py
 🌈 Paletas de colores neón ochenteras
 ```
 
----
 
-## 📺 Demo
-> *(Sustituye con tu imagen o gif de demostración)*
-
-![demo](https://raw.githubusercontent.com/TU_USUARIO/TU_REPOSITORIO/main/demo.gif)
-
----
 
 ## 💡 Futuras funcionalidades
 ```
