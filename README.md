@@ -62,8 +62,7 @@ python modo_historia.py
 
 ### 📼 Reproductor Multimedia
 ```bash
-cd multimedia
-python main.py
+multimedia.sh
 ```
 
 ---
