@@ -1,17 +1,21 @@
 import requests
+import os
+from dotenv import load_dotenv
+
+# Cargar las variables desde el archivo .env
+load_dotenv()
+
+# Obtener la IP desde el entorno
+ip = os.getenv("IP")
 
 def obtener_estado_juego():
- 
-    url = "http://localhost:8000/arcade/juego/ejecutando"
+    url = f"http://{ip}:8000/arcade/juego/ejecutando"
 
     try:
-        # Hacer la solicitud GET
         respuesta = requests.get(url)
 
-        # Verificar si la solicitud fue exitosa (código 200)
         if respuesta.status_code == 200:
-            # Retornar el valor booleano obtenido de la respuesta
-            return respuesta.json()  # Se espera que la respuesta sea un booleano (True o False)
+            return respuesta.json()
         else:
             print(f"Error en la solicitud: {respuesta.status_code}")
             return False

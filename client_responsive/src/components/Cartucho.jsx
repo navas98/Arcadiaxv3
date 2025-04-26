@@ -1,12 +1,11 @@
 import React from 'react';
+import BACKEND_URL from '../config.js'; // ✅ Usamos la IP desde .env
 
 function Cartucho({ nombre, imagen, activo, consola }) {
-  // Función para manejar el clic en el botón de encendido
   const handleToggle = async () => {
     try {
-      // Si el juego está activo, se hace una solicitud para apagarlo
       if (activo) {
-        const response = await fetch('http://192.168.1.79:8000/arcade/reset', {
+        const response = await fetch(`${BACKEND_URL}/arcade/reset`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -20,8 +19,7 @@ function Cartucho({ nombre, imagen, activo, consola }) {
           console.error('Error al apagar el videojuego.');
         }
       } else {
-        // Si el juego está inactivo, se hace una solicitud para encenderlo
-        const response = await fetch(`http://192.168.1.79:8000/arcade/videojuego/${nombre}/${consola}`, {
+        const response = await fetch(`${BACKEND_URL}/arcade/videojuego/${nombre}/${consola}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +41,6 @@ function Cartucho({ nombre, imagen, activo, consola }) {
 
   return (
     <div className="relative w-56 h-[320px] bg-gray-200 rounded-2xl shadow-2xl p-2 border-4 border-gray-700 mx-auto flex flex-col items-center">
-      {/* Pantalla de la Game Boy */}
       <div
         className={`w-40 h-24 rounded-lg border-2 border-gray-800 shadow-inner mb-2 ${
           activo ? 'bg-green-600' : 'bg-red-600'
@@ -56,7 +53,7 @@ function Cartucho({ nombre, imagen, activo, consola }) {
         />
       </div>
 
-      {/* Cruceta de dirección */}
+      {/* Cruceta */}
       <div className="absolute left-4 bottom-16">
         <div className="w-8 h-2 bg-black rounded mb-1"></div>
         <div className="flex">
@@ -66,7 +63,7 @@ function Cartucho({ nombre, imagen, activo, consola }) {
         <div className="w-8 h-2 bg-black rounded mt-1"></div>
       </div>
 
-      {/* Botón de encendido */}
+      {/* Botón encendido */}
       <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2">
         <button
           onClick={handleToggle}
@@ -89,13 +86,13 @@ function Cartucho({ nombre, imagen, activo, consola }) {
         <div className="bg-red-600 w-6 h-6 rounded-full shadow-lg"></div>
       </div>
 
-      {/* Botones Select y Start */}
+      {/* Select y Start */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
         <div className="bg-gray-800 w-12 h-4 rounded-lg shadow-inner text-center text-white text-xs"></div>
         <div className="bg-gray-800 w-12 h-4 rounded-lg shadow-inner text-center text-white text-xs"></div>
       </div>
 
-      {/* Nombre del juego */}
+      {/* Nombre */}
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-sm font-bold text-gray-800">
         {nombre.toUpperCase()}
       </div>

@@ -18,7 +18,7 @@ async def main():
 
             # Verificar si el juego no está marcado como abierto
             if not juego["abierto"]:
-                # Actualizar estado del juego a 'abierto'
+                # Actualizar estado del juego a 'abierto' y7
                 juego_abierto = actualizar_juego_abierto(juego["nombre"], juego["consola"])
                 abrir_juego(juego_abierto["ubicacion"], juego_abierto["consola"])
 
@@ -41,3 +41,4 @@ async def main():
 # Ejecutar la función main
 if __name__ == "__main__":
     asyncio.run(main())
+    #python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000

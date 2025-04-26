@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/navbar.jsx";
 import Cartucho from "../components/Cartucho.jsx";
+import BACKEND_URL from "../config.js"; // ✅ usamos la variable desde .env
 
 function Videogames() {
   const { consolaNombre } = useParams();
@@ -11,7 +12,7 @@ function Videogames() {
     const fetchJuegos = async () => {
       try {
         const response = await fetch(
-          `http://192.168.1.79:8000/arcade/juegos/${consolaNombre}`,
+          `${BACKEND_URL}/arcade/juegos/${consolaNombre}`,
           {
             method: "GET",
             headers: {
@@ -48,7 +49,7 @@ function Videogames() {
       </div>
 
       {/* Título */}
-      <div className="pt-32 text-center"> {/* Cambié pt-24 a pt-32 */}
+      <div className="pt-32 text-center">
         <h1 className="text-3xl sm:text-5xl font-bold text-yellow-400 retro-title tracking-wide">
           <span className="bg-black px-4 py-2 rounded-lg shadow-lg border-2 border-yellow-400">
             JUEGOS PARA <span>{consolaNombre.toUpperCase()}</span>

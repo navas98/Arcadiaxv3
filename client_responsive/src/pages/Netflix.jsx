@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PeliculaCard from "../components/PeliculaCard.jsx";
 import Navbar from "../components/navbar.jsx";
 import axios from "axios";
+import BACKEND_URL from "../config.js"; // 🟢 Usamos el backend desde .env
 
 function Netflix() {
   const [peliculas, setPeliculas] = useState([]);
@@ -9,7 +10,7 @@ function Netflix() {
   useEffect(() => {
     const fetchPeliculas = async () => {
       try {
-        const response = await axios.get("http://192.168.1.79:8000/multimedia/peliculas", {
+        const response = await axios.get(`${BACKEND_URL}/multimedia/peliculas`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -34,7 +35,7 @@ function Netflix() {
 
     if (peliculaActual.play) {
       try {
-        const response = await axios.put("http://192.168.1.79:8000/pelicula/resetear");
+        const response = await axios.put(`${BACKEND_URL}/pelicula/resetear`);
         if (response.status === 200) {
           setPeliculas((prev) =>
             prev.map((p) => ({ ...p, play: false }))
@@ -46,7 +47,7 @@ function Netflix() {
     } else {
       try {
         const response = await axios.put(
-          `http://192.168.1.79:8000/multimedia/pelicula/${nombre}`,
+          `${BACKEND_URL}/multimedia/pelicula/${nombre}`,
           { play: true }
         );
         if (response.status === 200) {
